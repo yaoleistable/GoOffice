@@ -125,7 +125,7 @@ async function extractPages() {
     </main>
 
     <footer class="app-footer">
-      <p>提取后的文件将保存在原文件所在目录，文件名后缀为"_extracted"</p>
+      <p>提取后的文件将保存在原文件所在目录，"output"文件夹</p>
     </footer>
   </div>
 </template>

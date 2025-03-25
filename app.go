@@ -66,15 +66,27 @@ func (a *App) SelectFiles() ([]FileInfo, error) {
 
 	// 处理每个选择的文件
 	for _, path := range filePaths {
-		// 获取文件信息
-		pageCount, err := api.PageCountFile(path)
+		// 确保路径是绝对路径
+		absPath, err := filepath.Abs(path)
 		if err != nil {
+			fmt.Printf("获取绝对路径失败: %v, 原路径: %s\n", err, path)
 			continue
 		}
 
+		// 获取文件信息
+		pageCount, err := api.PageCountFile(absPath)
+		if err != nil {
+			// 记录详细错误信息
+			fmt.Printf("获取PDF页数失败: %v, 文件: %s\n", err, absPath)
+
+			// 尝试使用默认页数
+			fmt.Printf("使用默认页数1继续处理文件\n")
+			pageCount = 1
+		}
+
 		files = append(files, FileInfo{
-			Name:  filepath.Base(path),
-			Path:  path,
+			Name:  filepath.Base(absPath),
+			Path:  absPath,
 			Pages: pageCount,
 		})
 	}
