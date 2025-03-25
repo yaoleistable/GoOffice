@@ -21,7 +21,7 @@ type App struct {
 // NewApp creates a new App application struct
 func NewApp() *App {
 	return &App{
-		Version: "V0.0.2",
+		Version: "V0.0.1",
 	}
 }
 
